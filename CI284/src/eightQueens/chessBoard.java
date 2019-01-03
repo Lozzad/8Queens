@@ -37,7 +37,7 @@ public class chessBoard {
 	public boolean solve(int numQueens, int row) {
 		if (row == rowToSkip) {
 			row++;
-			System.out.println("skipping occupied row");
+			//System.out.println("skipping occupied row");
 		}
 		//exits if 8 placed
 		if (row >= 8) {
@@ -50,21 +50,21 @@ public class chessBoard {
 		for (int col = 0; col < 8; col++) {
 			//if the space is safe, place a queen
 			if (checkSafe(row,col) == 0) {
-				System.out.println("placing queen at " + row + " " + col);
+				//System.out.println("placing queen at " + row + " " + col);
 				this.placeQueen(row, col, 0);
 				numQueens++;
-				System.out.println("numQueens: " + numQueens);
+				//System.out.println("numQueens: " + numQueens);
 				//if the problem can be solved using recursion return true
 				solve(numQueens, row+1);
 				
 				this.placeQueen(row, col, 1);
 				numQueens--;
 			} else {
-				System.out.println("unsafe to place queen at" + row + " " + col);
+				//System.out.println("unsafe to place queen at" + row + " " + col);
 			}
 			
 		}
-		System.out.println("solve returned false");
+		//System.out.println("solve returned false");
 		return false;
 		
 	}
