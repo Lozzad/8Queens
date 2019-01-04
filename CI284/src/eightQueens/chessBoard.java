@@ -4,7 +4,7 @@ public class chessBoard {
 	//2d int array for the board
 	private static int board[][];
 	//number of queens on board
-	private int numQueens;
+	private static int numQueens;
 	private int solutions;
 	private static int rowToSkip;
 	
@@ -21,7 +21,6 @@ public class chessBoard {
 		}
 		//handles the user inputted values
 		board[inputRow][inputCol] = 1;
-		numQueens++;
 		rowToSkip = inputRow;
 		this.printBoard();
 	}
@@ -31,40 +30,43 @@ public class chessBoard {
 	}
 	
 	public void start() {
-		solve(1, 0);
+		solve(0, 0);
 	}
 	
 	public boolean solve(int numQueens, int row) {
 		if (row == rowToSkip) {
 			row++;
+			numQueens++;
 			//System.out.println("skipping occupied row");
 		}
 		//exits if 8 placed
 		if (row >= 8) {
 			solutions++;
-			System.out.println("Solution " + solutions);
+			System.out.println("________________");
+			System.out.println("\nSolution " + solutions);
 			this.printBoard();
 			return true;
 		}
+
 		//if not done, iterate thru whole row
 		for (int col = 0; col < 8; col++) {
 			//if the space is safe, place a queen
 			if (checkSafe(row,col) == 0) {
 				//System.out.println("placing queen at " + row + " " + col);
 				this.placeQueen(row, col, 0);
+				//System.out.println("Queen number " + numQueens + " placed at " + row + ", " + col);
 				numQueens++;
-				//System.out.println("numQueens: " + numQueens);
 				//if the problem can be solved using recursion return true
 				solve(numQueens, row+1);
 				
 				this.placeQueen(row, col, 1);
 				numQueens--;
 			} else {
-				//System.out.println("unsafe to place queen at" + row + " " + col);
+				//System.out.println("unsafe to place queen " + numQueens + " at " + row + " " + col);
 			}
 			
 		}
-		//System.out.println("solve returned false");
+		//System.out.println("solve returned false, backtracking...");
 		return false;
 		
 	}
